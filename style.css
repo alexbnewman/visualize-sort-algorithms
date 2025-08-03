@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, white, #f8c1e8);
+}
+
+.container {
+    display: flex;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.37);
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 25vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    align-items: baseline;
+}
+
+.bar {
+    background: #f873d2;
+    box-shadow: inset -3px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    /* border-radius: 4px; */
+    min-width: 2px;
+    text-align: center;
+}

@@ -13,11 +13,6 @@ body {
     margin: 0 auto;
 }
 
-.description {
-    max-width: 60vw;
-    margin-bottom: 6vh;
-}
-
 h1 {
     color: black;
     font-size: 80px;
@@ -46,9 +41,40 @@ h1.custom-underline::after {
   z-index: -1;
 }
 
-h2 {
+/* h2 {
     margin-bottom: -.5em;
+} */
+
+.description {
+    max-width: 60vw;
+    margin-bottom: 6vh;
+    font-size: 1.5em;
+    font-weight: bold;
+    list-style: none; /* remove default bullets */
+    padding-left: .75em; /* space for custom bullets */
+    margin-left: -1.2em; 
 }
+
+ul li {
+    /* margin: 0.3em 0;  */
+    margin-bottom: -.5em;
+    margin-left: 1em;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5em;           /* space between bullet and text */
+    margin-bottom: 0.5em;
+}
+
+ul li::before {
+  content: "•";               /* your bullet symbol */
+  color: #f873d2;               /* bullet color */
+  font-size: 2em;           /* bigger bullet */
+  font-weight: bold;
+  line-height: 1;
+  transform: translateY(-.17em);
+  text-shadow: 0 0 6px #e981cb, 0 0 12px #e981cb;
+}
+
 
 .bar-container {
     display: flex;

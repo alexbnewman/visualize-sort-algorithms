@@ -57,3 +57,16 @@ async function bubbleSort() {
 }
 
 bubbleSort();
+
+function matchBlurbToChartWidth() {
+  const chart = document.querySelector('.bar-container');
+  const blurb = document.querySelector('.description');
+
+  if (chart && blurb) {
+    const chartWidth = chart.offsetWidth;
+    blurb.style.maxWidth = `${chartWidth}px`;
+  }
+}
+
+window.addEventListener('load', matchBlurbToChartWidth);
+window.addEventListener('resize', matchBlurbToChartWidth);

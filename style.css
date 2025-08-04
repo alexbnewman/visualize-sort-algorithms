@@ -34,41 +34,36 @@ h1.custom-underline::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: 25px;     /* place it at the bottom */
+  bottom: 25px;    
   width: 100%;
-  height: 15px;   /* thickness */
+  height: 15px; 
   background: #4fa217;
   z-index: -1;
 }
-
-/* h2 {
-    margin-bottom: -.5em;
-} */
 
 .description {
     max-width: 60vw;
     margin-bottom: 6vh;
     font-size: 1.5em;
     font-weight: bold;
-    list-style: none; /* remove default bullets */
-    padding-left: .75em; /* space for custom bullets */
+    list-style: none; 
+    padding-left: .75em; 
     margin-left: -1.2em; 
 }
 
 ul li {
-    /* margin: 0.3em 0;  */
     margin-bottom: -.5em;
     margin-left: 1em;
     display: flex;
     align-items: flex-start;
-    gap: 0.5em;           /* space between bullet and text */
+    gap: 0.5em;  
     margin-bottom: 0.5em;
 }
 
 ul li::before {
-  content: "•";               /* your bullet symbol */
-  color: #f873d2;               /* bullet color */
-  font-size: 2em;           /* bigger bullet */
+  content: "•";             
+  color: #f873d2;              
+  font-size: 2em;           
   font-weight: bold;
   line-height: 1;
   transform: translateY(-.17em);

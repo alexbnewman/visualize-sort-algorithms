@@ -58,9 +58,9 @@ export default function BarContainer({ onWidthChange }) {
         await sleep(700);
 
         newBars[j + 1].height = newBars[j].height;
+        setBars([...newBars]);
         updateColor([j + 1], '#f873d2');
-        // todo why doesnt the line above do anything?
-        updateColor([j], '#4ea217');
+        updateColor([j], '#ffffff');
         j--;
         await sleep(700);
       }
@@ -68,6 +68,7 @@ export default function BarContainer({ onWidthChange }) {
       // insert bar
       setFloatingKey(null);
       newBars[j + 1].height = keyHeight;
+      setBars([...newBars]);
       updateColor([j + 1], '#67a3d9');
       await sleep(700);
       updateColor([j + 1], '#4ea217');

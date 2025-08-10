@@ -103,7 +103,7 @@ ul li::before {
   width: 70vw;
 }
 
-.bar-container {
+.insertion-container {
   display: flex;
   position: relative;
   gap: 1px;
@@ -135,17 +135,11 @@ ul li::before {
     width: 4vw;
 }
 
-/* .floating-bar {
-  border: 2px solid #f873d2;
-  box-shadow: 0 0 5px #fadadd;
-  z-index: 100;
-} */
-
 .floating-key {
   position: absolute;
   width: 4vw;
   background-color: #fadadd;
-  transform: translateY(-9vh);
+  transform: translateY(10.5vh);
   transition: left 0.3s ease;
   z-index: 2;
   border-radius: 4px;

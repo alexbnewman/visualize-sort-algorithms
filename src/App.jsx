@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import BubbleSortPage from './pages/BubbleSortPage';
 import InsertionSortPage from './pages/InsertionSortPage';
+import Home from './pages/Home';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
           <Link to="/insertion">Insertion Sort</Link>
         </nav>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/bubble" element={<BubbleSortPage />} />
           <Route path="/insertion" element={<InsertionSortPage />} />
         </Routes>

@@ -2,11 +2,20 @@ import { useEffect, useRef, useState } from 'react';
 import Bar from './Bar';
 import { generateRandomSequence, sleep } from '../utils/sortingUtils';
 
-export default function BarContainer({ algorithm, onWidthChange }) {
+export default function BarContainer({ onWidthChange }) {
   const [bars, setBars] = useState(generateRandomSequence().map(h => ({ height: h, color: null })));
   const [floatingKey, setFloatingKey] = useState(null); // { index, height }
-
   const containerRef = useRef();
+  const [barSize, setBarSize] = useState({ width: 0, height: 0 });
+
+  // get width and height dynamically
+  useEffect(() => {
+    const firstBar = containerRef.current?.querySelector('.bar');
+    if (firstBar) {
+      const barRect = firstBar.getBoundingClientRect();
+      setBarSize({ width: barRect.width, height: barRect.height });
+    }
+  }, []);
 
   // When size changes, inform parent (e.g. Description component)
   useEffect(() => {
@@ -32,38 +41,6 @@ export default function BarContainer({ algorithm, onWidthChange }) {
     );
   };
 
-  const swapHeights = (i, j) => {
-    setBars(prev => {
-      const newBars = [...prev];
-      const temp = newBars[i].height;
-      newBars[i].height = newBars[j].height;
-      newBars[j].height = temp;
-      return newBars;
-    });
-  };
-
-  const bubbleSort = async () => {
-    let newBars = [...bars];
-    let swaps = true;
-
-    while (swaps) {
-      swaps = false;
-      for (let i = 0; i < newBars.length - 1; i++) {
-        updateColor([i, i + 1], '#f873d2');
-        await sleep(500);
-
-        if (newBars[i].height > newBars[i + 1].height) {
-          swapHeights(i, i + 1);
-          swaps = true;
-          await sleep(500);
-        }
-
-        updateColor([i, i + 1], '#4ea217');
-        await sleep(500);
-      }
-    }
-  };
-
   const insertionSort = async () => {
     let newBars = [...bars];
     for (let i = 1; i < newBars.length; i++) {
@@ -82,8 +59,8 @@ export default function BarContainer({ algorithm, onWidthChange }) {
 
         newBars[j + 1].height = newBars[j].height;
         updateColor([j + 1], '#f873d2');
+        // todo why doesnt the line above do anything?
         updateColor([j], '#4ea217');
-        setBars([...newBars]);
         j--;
         await sleep(700);
       }
@@ -92,29 +69,54 @@ export default function BarContainer({ algorithm, onWidthChange }) {
       setFloatingKey(null);
       newBars[j + 1].height = keyHeight;
       updateColor([j + 1], '#67a3d9');
-      setBars([...newBars]);
       await sleep(700);
       updateColor([j + 1], '#4ea217');
+      
+      // reset all bars to green
+      await sleep(700);
+      updateColor(newBars.map((_, i) => i), '#4ea217');
     }
   };
 
   useEffect(() => {
-    if (algorithm === 'bubble') bubbleSort();
-    else if (algorithm === 'insertion') insertionSort();
-  }, [algorithm]);
+    // Small delay to ensure component is mounted
+    const timer = setTimeout(() => {
+      insertionSort();
+    }, 100);
 
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Calculate left offset of floating key in pixels relative to container
+  let floatingKeyLeft = 0;
+  if (floatingKey && containerRef.current && barSize.width) {
+    const visualizeLeft = containerRef.current.getBoundingClientRect().left;
+
+    // Query the insertion container inside visualize-container
+    const insertionContainer = containerRef.current.querySelector('.insertion-container');
+    const insertionLeft = insertionContainer?.getBoundingClientRect().left || 0;
+
+    const distanceBetweenContainers = insertionLeft - visualizeLeft;
+
+    // Assuming 1px gap per bar between bars:
+    const gap = 1;
+
+    floatingKeyLeft = visualizeLeft + distanceBetweenContainers + (floatingKey.index) * (barSize.width + gap);
+  }
   return (
     <div className="visualize-container" ref={containerRef}>
       {floatingKey && (
         <div
           className="floating-key"
           style={{
-            left: `${floatingKey.index * 4}vw`,
-            height: floatingKey.height + 'vh',
+            //need to add distance from left to beginning of container to beginnning of first bar
+            left: `${floatingKeyLeft}px`,
+            width: `${barSize.width}px`,
+            height: `${floatingKey.height + 4}vh`, // this one comes from sorting state
           }}
         />
       )}
-      <div className="bar-container">
+      <div className="insertion-container">
         {bars.map((bar, i) => (
           <Bar key={i} height={bar.height} color={bar.color} />
         ))}

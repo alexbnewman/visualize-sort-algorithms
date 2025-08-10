@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 import Description from '../components/Description';
-import BarContainer from '../components/BarContainer';
+import Insertion from '../components/Insertion';
 import { useState } from 'react';
 
 export default function InsertionSortPage() {
@@ -10,7 +10,7 @@ export default function InsertionSortPage() {
     <>
       <Header algorithm="insertion" />
       <Description algorithm="insertion" width={barWidth} />
-      <BarContainer algorithm="insertion" onWidthChange={setBarWidth} />
+      <Insertion onWidthChange={setBarWidth} />
     </>
   );
 }
